@@ -1,14 +1,25 @@
-
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 var restaurantSchema = require('./restaurant.schema.server');
 var restaurantModel = mongoose.model('RestaurantModel',restaurantSchema);
 
-function createRestaurant(restaurant) {
-    return restaurantModel.create(restaurant);
-}
+createRestaurant = restaurant =>
+    restaurantModel.create(restaurant);
 
-var api ={
-    createRestaurant:createRestaurant
-}
+findAllRestaurants = () =>
+    restaurantModel.find();
 
-module.exports = api;
+findRestaurantById = restaurantId =>
+    restaurantModel.findById(restaurantId);
+
+updateRestaurant = (restaurantId, newRestaurant) =>
+    restaurantModel.update({_id: restaurantId}, {
+       $set: newRestaurant
+    });
+
+deleteRestaurant = (restaurantId) =>
+    restaurantModel.remove({_id: restaurantId});
+
+module.exports = {
+    createRestaurant, findAllRestaurants, findRestaurantById,
+    updateRestaurant, deleteRestaurant
+};
