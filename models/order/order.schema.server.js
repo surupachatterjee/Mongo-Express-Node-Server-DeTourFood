@@ -10,12 +10,5 @@ module.exports = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'RestaurantModel'
     }],
-    menu: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'MenuModel'
-    }],
-    delivery: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'DeliveryModel'
-    }]
+    menuItem: String
 }, {collection: orders});
