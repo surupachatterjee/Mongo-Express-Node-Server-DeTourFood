@@ -3,7 +3,7 @@ module.exports = mongoose.Schema({
    menuId: Number,
    name: String,
    cuisineName: String,
-   category: [{
+   menuType: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'MenuTypeModel'
    }]
