@@ -3,8 +3,13 @@ module.exports = mongoose.Schema({
    menuId: Number,
    name: String,
    cuisineName: String,
-   menuType: [{
-       type: mongoose.Schema.Types.ObjectId,
-       ref: 'MenuTypeModel'
-   }]
+   menuType: {
+       type: String,
+       enum: [
+           'BREAKFAST',
+           'LUNCH',
+           'DINNER'
+       ]},
+   menuItems: []
 }, {collection: menu});
+
