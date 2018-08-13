@@ -88,4 +88,5 @@ module.exports = app => {
     app.put('/api/restaurant/:restaurantId', updateRestaurant);
     app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
     app.put('/api/restaurant/:restaurantId/menu/:menuId', addMenu);
+
 }
