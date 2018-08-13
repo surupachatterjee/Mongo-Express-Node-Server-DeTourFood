@@ -29,6 +29,8 @@ app.use(session({
 
 console.log("Server Started");
 
+var menuService = require('./services/menu.service.server');
+menuService(app);
 
 var restaurantService = require('./services/restaurant.service.server');
 restaurantService(app);
@@ -37,6 +39,6 @@ var userService = require('./services/user.service.server');
 userService(app);
 
 
-app.listen(3000,function(){
+app.listen(4000,function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

@@ -11,5 +11,5 @@ module.exports = mongoose.Schema({
            'DINNER'
        ]},
    menuItems: []
-}, {collection: menu});
+}, {collection: 'menu'});
 

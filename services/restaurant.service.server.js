@@ -1,11 +1,5 @@
 module.exports = app => {
 
-    app.post('api/restaurant', createRestaurant);
-    app.get('api/restaurant', findAllRestaurants);
-    app.get('api/restaurant/:restaurantId', findRestaurantById);
-    app.put('api/restaurant/:restaurantId', updateRestaurant);
-    app.delete('api/restaurant/:restaurantId', deleteRestaurant);
-
     const restaurantModel = require('../models/restaurant/restaurant.model.server');
 
     createRestaurant = (request, response) => {
@@ -32,4 +26,11 @@ module.exports = app => {
         restaurantModel.deleteRestaurant(request.params.restaurantId)
             .then(status => response.send(status));
     }
+
+    app.post('/api/restaurant', createRestaurant);
+    app.get('/api/restaurant', findAllRestaurants);
+    app.get('/api/restaurant/:restaurantId', findRestaurantById);
+    app.put('/api/restaurant/:restaurantId', updateRestaurant);
+    app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
+
 }

@@ -1,11 +1,5 @@
 module.exports = app => {
 
-    app.post('api/menu', createMenu);
-    app.get('api/menu', findAllMenus);
-    app.get('api/menu/:menuId', findMenuById);
-    app.put('api/menu/:menuId', updateMenu);
-    app.delete('api/menu/:menuId', deleteMenu);
-
     const menuModel = require('../models/menu/menu.model.server');
 
     createMenu = (request, response) => {
@@ -32,4 +26,10 @@ module.exports = app => {
         menuModel.deleteMenu(request.params.menuId)
             .then(status => response.send(status));
     }
+
+    app.post('/api/menu', createMenu);
+    app.get('/api/menu', findAllMenus);
+    app.get('/api/menu/:menuId', findMenuById);
+    app.put('/api/menu/:menuId', updateMenu);
+    app.delete('/api/menu/:menuId', deleteMenu);
 }

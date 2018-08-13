@@ -20,4 +20,4 @@ module.exports = mongoose.Schema({
        type: mongoose.Schema.Types.ObjectId,
        ref: 'DeliveryModel'
    }]
-}, {collection: restaurants});
+}, {collection: 'restaurants'});
