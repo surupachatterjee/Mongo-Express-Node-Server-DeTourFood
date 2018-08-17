@@ -5,6 +5,7 @@ module.exports = function (app) {
     app.post('/api/user', createUser);
     app.get('/api/profile',profile);
     app.post('/api/login',login);
+    app.post('/api/logout', logout);
 
     var userModel = require('../models/user/user.model.server');
 
@@ -18,14 +19,29 @@ module.exports = function (app) {
 
 
     function login(req, res) {
+        // console.log('in login');
         var credentials = req.body;
         userModel
             .findUserByCredentials(credentials)
             .then(function(user) {
-                req.session['currentUser'] = user;
-                res.json(user);
+                console.log(user);
+                if(user != null) {
+                    req.session['currentUser'] = user;
+                    res.send(user);
+                }else{
+                    user ={
+                        username:"Invalid credentials"
+                    }
+                    res.send(user);
+                }
             })
     }
+
+    function logout(req, res) {
+        req.session.destroy();
+        res.sendStatus(200);
+    }
+
 
     function createUser(req,res) {
         var user = req.body;

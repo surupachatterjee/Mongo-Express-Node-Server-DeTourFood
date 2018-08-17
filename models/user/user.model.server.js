@@ -12,7 +12,7 @@ function findAllUsers() {
 }
 
 function findUserByCredentials(credentials) {
-    return userModel.findOne(credentials, {username: 1});
+    return userModel.findOne(credentials);
 }
 
 var api = {

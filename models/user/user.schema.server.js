@@ -9,6 +9,7 @@ var userSchema = mongoose.Schema({
     phone:String,
     dateOfBirth:Date,
     restaurant: {type: mongoose.Schema.Types.ObjectId, ref:'RestaurantModel'},
+    address: {type: mongoose.Schema.Types.ObjectId, ref:'AddressModel'},
     order : {type: mongoose.Schema.Types.ObjectId, ref:''},
     review :{type: mongoose.Schema.Types.ObjectId, ref:''}
 
