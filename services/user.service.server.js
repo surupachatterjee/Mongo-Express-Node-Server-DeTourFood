@@ -54,10 +54,18 @@ module.exports = function (app) {
 
     function createUser(req, res) {
         var user = req.body;
-        userModel.createUser(user).then(function (user) {
-            req.session['currentUser'] = user;
-            res.send(user);
-        })
+        userModel.findUserByUsername(user.username)
+            .then(function (respUser) {
+                if (respUser !== null) {
+                    console.log(respUser.username);
+                    res.send({username: "Username Already Exists"});
+                }
+                else userModel.createUser(user).then(function (user) {
+                    req.session['currentUser'] = user;
+                    res.send(user);
+                })
+            });
+
 
     }
 
