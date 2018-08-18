@@ -15,10 +15,15 @@ function findUserByCredentials(credentials) {
     return userModel.findOne(credentials);
 }
 
+function findUserByUsername(username) {
+    return userModel.findOne({username: username});
+}
+
 var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
-    findUserByCredentials: findUserByCredentials
+    findUserByCredentials: findUserByCredentials,
+    findUserByUsername:findUserByUsername
 
 }
 
