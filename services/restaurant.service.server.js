@@ -22,7 +22,8 @@ module.exports = function (app) {
                                 phone:restaurantUser.phone,
                                 email:restaurantUser.email,
                                 creationDate: restaurantUser.creationDate,
-                                restStatus:restaurantUser.userStatus
+                                restStatus:restaurantUser.userStatus,
+                                zomatoRest:restaurantUser.zomatoRest
                             }).then(function(restrnt){
                                 userModel.createUser({
                                     username: restaurantUser.username,

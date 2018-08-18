@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.Schema({
     name: String,
-    zomatoID : String,
+    zomatoRest : Object,
     address : {type: mongoose.Schema.Types.ObjectId,
         ref: 'AddressModel'},
     zipcode: String,

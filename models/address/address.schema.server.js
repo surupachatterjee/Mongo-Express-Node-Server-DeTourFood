@@ -1,11 +1,14 @@
 var mongoose = require('mongoose');
 var addressSchema = mongoose.Schema({
     addressName: String,
-    addressLine1: String,
-    addressLine2: String,
+    address: String,
+    locality: String,
     city: String,
+    city_id: String,
+    latitude: String,
+    longitude: String,
+    zipcode: String,
     state: String,
-    zip: String,
     country: String,
     primaryShipAddr: Boolean,
     billingAddr: Boolean
