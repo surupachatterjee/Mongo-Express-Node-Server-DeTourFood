@@ -7,8 +7,16 @@ function createRestaurant(restaurant) {
     return restaurantModel.create(restaurant);
 }
 
+
+function addUsers(restaurantId,userId){
+    return restaurantModel.update({_id:restaurantId},{
+        $push:{users:userId}
+    })
+}
+
 var api ={
-    createRestaurant:createRestaurant
+    createRestaurant:createRestaurant,
+    addUsers:addUsers
 }
 
 module.exports = api;
