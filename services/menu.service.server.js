@@ -3,6 +3,7 @@ module.exports = app => {
     const menuModel = require('../models/menu/menu.model.server');
 
     createMenu = (request, response) => {
+        console.log(request.body);
         menuModel.createMenu(request.body)
             .then(menu => response.send(menu));
     }
@@ -27,7 +28,7 @@ module.exports = app => {
             .then(status => response.send(status));
     }
 
-    app.post('/api/menu', createMenu);
+    app.post('/api/restaurant/:restaurantId/menu', createMenu);
     app.get('/api/menu', findAllMenus);
     app.get('/api/menu/:menuId', findMenuById);
     app.put('/api/menu/:menuId', updateMenu);

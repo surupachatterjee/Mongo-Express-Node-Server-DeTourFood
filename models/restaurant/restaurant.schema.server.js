@@ -1,22 +1,22 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.Schema({
-   restaurantId: Number,
    name: String,
-   phoneNumber: Number,
-   cuisineType: String,
-   menu: [{
+   zipcode: Number,
+   cuisines: [String],
+   featured_image: String,
+   menus: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'MenuModel'
    }],
-   user: [{
+   users: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'UserModel'
    }],
-   order: [{
+   orders: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'OrderModel'
    }],
-   delivery: [{
+   deliveries: [{
        type: mongoose.Schema.Types.ObjectId,
        ref: 'DeliveryModel'
    }]

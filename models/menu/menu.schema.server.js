@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.Schema({
-   menuId: Number,
    name: String,
    cuisineName: String,
    menuType: {
