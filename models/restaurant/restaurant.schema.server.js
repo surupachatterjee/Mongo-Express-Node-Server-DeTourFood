@@ -12,10 +12,10 @@ module.exports = mongoose.Schema({
     restStatus:String,
     cuisines: [String],
     featured_image: String,
-    menus: [{
+    menu: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MenuModel'
-    }],
+    },
     users: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserModel'
