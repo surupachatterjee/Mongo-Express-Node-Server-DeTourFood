@@ -5,7 +5,7 @@ module.exports = app => {
 
 
     findAllRestaurants = (request, response) => {
-        restaurantModel.findAllRestaurants(request.body)
+        restaurantModel.findAllRestaurants()
             .then(restaurants => response.send(restaurants));
     }
 
@@ -31,16 +31,6 @@ module.exports = app => {
                 error => response.send(error)
             )
     }
-
-
-    var userModel = require('../models/user/user.model.server');
-    var addressModel = require('../models/address/address.model.server');
-    app.post('/api/restaurant', createRestaurant);
-    app.get('/api/restaurant', findAllRestaurants);
-    app.get('/api/restaurant/:restaurantId', findRestaurantById);
-    app.put('/api/restaurant/:restaurantId', updateRestaurant);
-    app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
-    app.put('/api/restaurant/:restaurantId/menu/:menuId', addMenu);
 
     function createRestaurant(req,res) {
         var restaurantUser = req.body;
@@ -83,5 +73,17 @@ module.exports = app => {
                 }
             })
     }
+
+
+    var userModel = require('../models/user/user.model.server');
+    var addressModel = require('../models/address/address.model.server');
+    app.post('/api/restaurant', createRestaurant);
+    app.get('/api/restaurant', findAllRestaurants);
+    app.get('/api/restaurant/:restaurantId', findRestaurantById);
+    app.put('/api/restaurant/:restaurantId', updateRestaurant);
+    app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
+    app.put('/api/restaurant/:restaurantId/menu/:menuId', addMenu);
+
+
     
 }
