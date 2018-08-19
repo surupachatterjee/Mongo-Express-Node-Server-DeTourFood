@@ -29,13 +29,13 @@ app.use(session({
 
 console.log("Server Started");
 
-<<<<<<< 406ee780b7f53dbd5c9844352fb1d38950e0fc2c
+
 var menuService = require('./services/menu.service.server');
 menuService(app);
-=======
+
 var orderService = require('./services/order.service.server');
 orderService(app);
->>>>>>> order schema, service and model files added
+
 
 var restaurantService = require('./services/restaurant.service.server');
 restaurantService(app);

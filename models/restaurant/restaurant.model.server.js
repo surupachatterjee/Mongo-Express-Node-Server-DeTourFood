@@ -15,10 +15,6 @@ function addUsers(restaurantId,userId){
     })
 }
 
-var api ={
-    createRestaurant:createRestaurant,
-    addUsers:addUsers
-}
 findRestaurantById = restaurantId =>
     restaurantModel.findById(restaurantId);
 
@@ -32,5 +28,5 @@ deleteRestaurant = (restaurantId) =>
 
 module.exports = {
     createRestaurant, findAllRestaurants, findRestaurantById,
-    updateRestaurant, deleteRestaurant
+    updateRestaurant, deleteRestaurant,addUsers
 };
