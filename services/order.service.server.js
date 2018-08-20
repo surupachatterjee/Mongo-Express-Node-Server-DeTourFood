@@ -18,8 +18,14 @@ module.exports = app => {
     }
 
     updateOrder = (request, response) => {
-        orderModel.updateOrder(request.params.orderId, request.body)
-            .then(status => response.send(status));
+        if(request.body._id){
+            orderModel.updateOrder(request.body._id, request.body)
+                .then(() => orderModel.findOrderById(request.body._id))
+                .then(order => response.send(order));
+        } else {
+            orderModel.createOrder(request.body)
+                .then(order => response.send(order));
+        }
     }
 
     deleteOrder = (request, response) => {
@@ -30,6 +36,6 @@ module.exports = app => {
     app.post('/api/order', createOrder);
     app.get('/api/order', findAllOrders);
     app.get('/api/order/:orderId', findOrderById);
-    app.put('/api/order/:orderId', updateOrder);
+    app.put('/api/order', updateOrder);
     app.delete('/api/order/:orderId', deleteOrder);
 }
