@@ -84,6 +84,14 @@ function findUserByUsername(username) {
             model: 'AddressModel'
         })
         .populate({
+            path: 'reviews',
+            model: 'ReviewModel',
+            populate:{
+                path:'restaurant',
+                model:'RestaurantModel'
+            }
+        })
+        .populate({
             path: 'restaurants',
             model: 'RestaurantModel',
             populate: {

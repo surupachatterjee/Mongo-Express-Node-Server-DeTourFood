@@ -12,6 +12,7 @@ module.exports = function (app) {
     app.put('/api/user/address/:addressId', updateUserAddress);
     app.post('/api/admin/user', createUserFromAdmin)
     app.post('/api/user/:userId/address',createUserAddress);
+    app.get('/api/user/:userId', findUserById);
 
     var userModel = require('../models/user/user.model.server');
     const addressModel = require('../models/address/address.model.server');
@@ -52,8 +53,16 @@ module.exports = function (app) {
             })
     }
 
+    function findUserById(req,res) {
+        var userId = req.params['userId'];
+        console.log(userId);
+        userModel.findUserById(userId)
+            .then(user => res.json(user));
+    }
+
     function deleteUser(req, res) {
         var userId = req.params['userId'];
+        console.log(userId);
         userModel.deleteUser(userId)
             .then(function (status) {
                 res.send(status);
