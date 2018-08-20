@@ -20,6 +20,14 @@ findAllRestaurants = () =>
             path:'users',
             model:'UserModel'
         })
+        .populate({
+            path:'reviews',
+            model:'ReviewModel',
+            populate:{
+                path:'user',
+                model:'UserModel'
+            }
+        })
         .exec();
 
 
@@ -34,7 +42,23 @@ addUsers = (restaurantId,userId) => {
 
 
 findRestaurantById = restaurantId =>
-    restaurantModel.findById(restaurantId);
+    restaurantModel.findById(restaurantId)
+        .populate({
+            path:'address',
+            model:'AddressModel'})
+        .populate({
+            path:'users',
+            model:'UserModel'
+        })
+        .populate({
+            path:'reviews',
+            model:'ReviewModel',
+            populate:{
+                path:'user',
+                model:'UserModel'
+            }
+        })
+        .exec();
 
 updateRestaurant = (restaurantId, newRestaurant) =>
     restaurantModel.findOne({_id: restaurantId}, {
@@ -44,6 +68,14 @@ updateRestaurant = (restaurantId, newRestaurant) =>
 deleteRestaurant = (restaurantId) =>
     restaurantModel.remove({_id: restaurantId});
 
+function addReviews(restaurantId,reviewId) {
+    return restaurantModel.update(
+        {_id: restaurantId},
+        {
+            $push: {reviews: reviewId}
+        })
+}
+
 module.exports = {
     createRestaurant,
     findAllRestaurants,
@@ -51,5 +83,6 @@ module.exports = {
     updateRestaurant,
     deleteRestaurant,
     addUsers,
-    changeRestaurantStatus
+    changeRestaurantStatus,
+    addReviews
 };

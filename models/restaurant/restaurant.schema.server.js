@@ -27,5 +27,8 @@ module.exports = mongoose.Schema({
     deliveries: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DeliveryModel'
+    }],
+    reviews: [{type: mongoose.Schema.Types.ObjectId,
+        ref: 'ReviewModel'
     }]
 }, {collection: 'restaurants'});

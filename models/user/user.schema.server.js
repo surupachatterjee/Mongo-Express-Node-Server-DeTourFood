@@ -34,8 +34,8 @@ var userSchema = mongoose.Schema({
     dateOfBirth: Date,
     addresses: [{type: mongoose.Schema.Types.ObjectId, ref: 'AddressModel'}],
     restaurants: [{type: mongoose.Schema.Types.ObjectId, ref: 'RestaurantModel'}],
-    orders: [{type: mongoose.Schema.Types.ObjectId, ref: ''}],
-    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: ''}]
+    orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'OrderModel'}],
+    reviews: [{type: mongoose.Schema.Types.ObjectId, ref: 'ReviewModel'}]
 
 
 }, {collection: 'user'});
