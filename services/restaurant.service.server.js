@@ -33,6 +33,7 @@ module.exports = app => {
     }
 
 
+
     var userModel = require('../models/user/user.model.server');
     var addressModel = require('../models/address/address.model.server');
     app.post('/api/restaurant', createRestaurant);
@@ -41,6 +42,16 @@ module.exports = app => {
     app.put('/api/restaurant/:restaurantId', updateRestaurant);
     app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
     app.put('/api/restaurant/:restaurantId/menu/:menuId', addMenu);
+    app.put('/api/restaurant/:restaurantId/status/:statusVal',changeRestaurantStatus)
+
+    function changeRestaurantStatus(req,res) {
+        var restId = req.params['restaurantId'];
+        var restStatus = req.params['statusVal'];
+        restaurantModel.changeRestaurantStatus(restId,restStatus)
+            .then(rest => res.json(rest));
+    }
+
+
 
     function createRestaurant(req,res) {
         var restaurantUser = req.body;
@@ -73,9 +84,12 @@ module.exports = app => {
                                     restaurants: [restrnt._id],
                                     addresses: [addr._id]
                                 }).then(function(createdUser) {
+                                    console.log(restrnt._id + " " + createdUser._id);
                                     restaurantModel.addUsers(restrnt._id,createdUser._id)
-                                    userModel.findUserByUsername(createdUser.username)
-                                        .then(user => res.json(user));
+                                        .then( function (rest) {
+                                            userModel.findUserByUsername(createdUser.username)
+                                                .then(user => res.json(user))
+                                        });
 
                                 })
                             })

@@ -8,8 +8,46 @@ function createUser(user) {
 
 }
 
+function updateUserProfile(user,userId) {
+    return userModel.update({_id:userId},
+        {$set:user})
+}
+
 function findAllUsers() {
-    return userModel.find({});
+    return userModel.find({})
+        .populate({
+            path:'addresses',
+            model:'AddressModel'})
+        .populate({
+            path:'restaurants',
+            model:'RestaurantModel',
+            populate:{
+                path:'address',
+                model:'AddressModel'
+            }
+        })
+        .exec();
+}
+
+function findUserById(userId) {
+    return userModel.findOne({_id:userId})
+        .populate({
+            path:'addresses',
+            model:'AddressModel'})
+        .populate({
+            path:'restaurants',
+            model:'RestaurantModel',
+            populate:{
+                path:'address',
+                model:'AddressModel'
+            }
+        })
+        .exec();
+}
+
+
+function deleteUser(userId) {
+    return userModel.remove({_id:userId});
 }
 
 function findUserByCredentials(credentials) {
@@ -44,11 +82,23 @@ function findUserByUsername(username) {
         .exec();
 }
 
+function addAddress(userId,addressId) {
+    return userModel.update(
+        {_id: userId},
+        {
+            $push: {addresses: addressId}
+        })
+}
+
 var api = {
     createUser: createUser,
     findAllUsers: findAllUsers,
     findUserByCredentials: findUserByCredentials,
-    findUserByUsername:findUserByUsername
+    findUserByUsername:findUserByUsername,
+    updateUserProfile:updateUserProfile,
+    deleteUser:deleteUser,
+    findUserById:findUserById,
+    addAddress:addAddress
 
 }
 
