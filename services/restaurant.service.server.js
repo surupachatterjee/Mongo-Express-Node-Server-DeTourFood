@@ -2,10 +2,11 @@ module.exports = app => {
 
     const restaurantModel = require('../models/restaurant/restaurant.model.server');
     const RESTAURANT_URL ="https://developers.zomato.com/api/v2.1";
+    const menuModel = require('../models/menu/menu.model.server');
 
 
     findAllRestaurants = (request, response) => {
-        restaurantModel.findAllRestaurants(request.body)
+        restaurantModel.findAllRestaurants()
             .then(restaurants => response.send(restaurants));
     }
 
@@ -61,17 +62,29 @@ module.exports = app => {
                 if (user !== null)
                     res.send({username:'Username Already Exists'})
                 else {
-                    addressModel.createAddress(restaurantUser.addresses[0])
+                    let menu = {
+                        name: restaurantUser.addresses[0].addressName,
+                        cuisineName: '',
+                        menuItems: ''
+                    }
+                    let restaurant = {
+                        name: restaurantUser.addresses[0].addressName,
+                        phone:restaurantUser.phone,
+                        email:restaurantUser.email,
+                        creationDate: restaurantUser.creationDate,
+                        restStatus:restaurantUser.userStatus,
+                        zomatoRest:restaurantUser.zomatoRest,
+                        menu: '',
+                        address: ''
+                    }
+                    menuModel.createMenu(menu)
+                        .then((menu) => {
+                            restaurant.menu = menu._id
+                        }).then(() =>
+                        addressModel.createAddress(restaurantUser.addresses[0]))
                         .then(function(addr){
-                            restaurantModel.createRestaurant({
-                                name: restaurantUser.addresses[0].addressName,
-                                address : addr._id,
-                                phone:restaurantUser.phone,
-                                email:restaurantUser.email,
-                                creationDate: restaurantUser.creationDate,
-                                restStatus:restaurantUser.userStatus,
-                                zomatoRest:restaurantUser.zomatoRest
-                            }).then(function(restrnt){
+                            restaurant.address = addr._id,
+                            restaurantModel.createRestaurant(restaurant).then(function(restrnt){
                                 userModel.createUser({
                                     username: restaurantUser.username,
                                     password: restaurantUser.password,
@@ -97,5 +110,17 @@ module.exports = app => {
                 }
             })
     }
-    
+
+
+    var userModel = require('../models/user/user.model.server');
+    var addressModel = require('../models/address/address.model.server');
+    app.post('/api/restaurant', createRestaurant);
+    app.get('/api/restaurant', findAllRestaurants);
+    app.get('/api/restaurant/:restaurantId', findRestaurantById);
+    app.put('/api/restaurant/:restaurantId', updateRestaurant);
+    app.delete('/api/restaurant/:restaurantId', deleteRestaurant);
+    app.put('/api/restaurant/:restaurantId/menu/:menuId', addMenu);
+
+
+
 }
