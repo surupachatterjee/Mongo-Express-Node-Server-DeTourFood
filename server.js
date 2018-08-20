@@ -43,6 +43,9 @@ restaurantService(app);
 var userService = require('./services/user.service.server');
 userService(app);
 
+var reviewService = require('./services/review.service.server');
+reviewService(app);
+
 
 app.listen(4000,function(){
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
