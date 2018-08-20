@@ -5,21 +5,39 @@ var restaurantModel = mongoose.model('RestaurantModel',restaurantSchema);
 createRestaurant = restaurant =>
     restaurantModel.create(restaurant);
 
-findAllRestaurants = () =>
-    restaurantModel.find();
 
-
-function addUsers(restaurantId,userId){
-    return restaurantModel.update({_id:restaurantId},{
-        $push:{users:userId}
+changeRestaurantStatus = (restId,restStatus) =>
+    restaurantModel.update({_id : restId},{
+        $set:{restStatus:restStatus}
     })
-}
+
+findAllRestaurants = () =>
+    restaurantModel.find()
+        .populate({
+            path:'address',
+            model:'AddressModel'})
+        .populate({
+            path:'users',
+            model:'UserModel'
+        })
+        .exec();
+
+
+addUsers = (restaurantId,userId) => {
+    console.log(restaurantId + " " + userId);
+    return restaurantModel.update(
+        {_id: restaurantId},
+        {
+            $push: {users: userId}
+        })
+};
+
 
 findRestaurantById = restaurantId =>
     restaurantModel.findById(restaurantId);
 
 updateRestaurant = (restaurantId, newRestaurant) =>
-    restaurantModel.update({_id: restaurantId}, {
+    restaurantModel.findOne({_id: restaurantId}, {
        $set: newRestaurant
     });
 
@@ -27,6 +45,11 @@ deleteRestaurant = (restaurantId) =>
     restaurantModel.remove({_id: restaurantId});
 
 module.exports = {
-    createRestaurant, findAllRestaurants, findRestaurantById,
-    updateRestaurant, deleteRestaurant,addUsers
+    createRestaurant,
+    findAllRestaurants,
+    findRestaurantById,
+    updateRestaurant,
+    deleteRestaurant,
+    addUsers,
+    changeRestaurantStatus
 };
