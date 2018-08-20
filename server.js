@@ -2,7 +2,7 @@ var express = require('express')
 var app = express();
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/DeTourFood',
+mongoose.connect('mongodb://shaivy:wbdv2018@ds227322.mlab.com:27322/heroku_qzcj65w4',
     { useNewUrlParser: true });
 
 app.use(bodyParser.json());
