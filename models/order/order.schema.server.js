@@ -17,6 +17,13 @@ module.exports = mongoose.Schema({
         menuItemId: String,
         restaurantId: String,
         menuItem: String,
-        menuItemPrice: String
+        menuItemPrice: String,
+        menuItemStatus: {
+            type: String,
+            enum: [
+                'DELIVERED',
+                'NOT DELIVERED'
+            ]
+        }
     }]
 }, {collection: 'orders'});
