@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 //mongoose.connect('mongodb://localhost/DeTourFood');
 
-mongoose.connect('mongodb://shaivy:wbdv2018@ds227322.mlab.com:27322/heroku_qzcj65w4',
+mongoose.connect('mongodb://detourfood:DetourFood2018@ds247852.mlab.com:47852/detourfood',
     { useNewUrlParser: true });
 
 app.use(bodyParser.json());
